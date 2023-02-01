@@ -21,4 +21,8 @@ public interface TaskService {
     List<TaskDTO> getTasksInProgressStatus(Long userId);
 
     List<TaskDTO> getAllCompletedTask(Long userId);
+
+    void moveBack(Long taskId) throws CustomUserException;
+
+    void deleteTask(Long taskId);
 }

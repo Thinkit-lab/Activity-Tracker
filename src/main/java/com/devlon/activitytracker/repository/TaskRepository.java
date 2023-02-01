@@ -42,4 +42,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "select * from task t where t.status = 2 and t.user_id = ?1",
             nativeQuery = true)
     List<Task> findAllDone(Long userId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE task t set t.status = (t.status - 1) WHERE t.task_id = ?1",
+            nativeQuery = true)
+    void moveBack(Long taskId);
 }

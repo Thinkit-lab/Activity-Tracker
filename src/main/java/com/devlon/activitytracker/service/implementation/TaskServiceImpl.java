@@ -106,6 +106,23 @@ public class TaskServiceImpl implements TaskService {
         return tasks.stream().map(this::mappedToDTO).toList();
     }
 
+    @Override
+    public void moveBack(Long taskId) throws CustomUserException {
+        Task task = taskRepository.findById(taskId).get();
+        if(task.getStatus() == Status.PENDING){
+            throw new CustomUserException("Task cannot be moved further. " +
+                    "You can consider moving it up");
+        }
+        taskRepository.moveBack(taskId);
+
+        taskRepository.updateUpdateAt(LocalDateTime.now(), taskId);
+    }
+
+    @Override
+    public void deleteTask(Long taskId) {
+        taskRepository.deleteById(taskId);
+    }
+
     private TaskDTO mappedToDTO(Task task) {
         TaskDTO taskDTO = TaskDTO.builder()
                 .title(task.getTitle())

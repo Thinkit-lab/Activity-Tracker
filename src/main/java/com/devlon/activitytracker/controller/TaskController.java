@@ -91,16 +91,35 @@ public class TaskController {
     }
 
     @GetMapping("/task/move_task/{taskId}")
-    public String moveToProgress(HttpSession httpSession, @PathVariable Long taskId) throws CustomUserException, ExecutionException, InterruptedException {
+    public String moveTask(HttpSession httpSession, @PathVariable Long taskId) throws CustomUserException, ExecutionException, InterruptedException {
         UserDTO userDTO = (UserDTO) httpSession.getAttribute("userDTO");
-//        TaskDTO taskDTO = taskService.getTaskById(taskId);
-//        if(taskDTO.getStatus() == Status.DONE){
-//            throw new CustomUserException("Task has been completed and cannot be moved further. " +
-//                    "You can consider moving it back");
-//        }
-//        else {
-            taskService.moveTask(taskId);
-//        }
+
+        taskService.moveTask(taskId);
+
+        List<TaskDTO> tasks = taskService.getAllTask(userDTO.getUserId());
+        httpSession.setAttribute("task", tasks);
+
+        return "redirect:/all_task";
+    }
+
+    @GetMapping("/task/move_back/{taskId}")
+    public String moveBack(HttpSession httpSession, @PathVariable Long taskId) throws CustomUserException, ExecutionException, InterruptedException {
+        UserDTO userDTO = (UserDTO) httpSession.getAttribute("userDTO");
+
+        taskService.moveBack(taskId);
+
+        List<TaskDTO> tasks = taskService.getAllTask(userDTO.getUserId());
+        httpSession.setAttribute("task", tasks);
+
+        return "redirect:/all_task";
+    }
+
+    @GetMapping("/task/delete/{taskId}")
+    public String deleteTask(HttpSession httpSession, @PathVariable Long taskId) throws CustomUserException, ExecutionException, InterruptedException {
+        UserDTO userDTO = (UserDTO) httpSession.getAttribute("userDTO");
+
+        taskService.deleteTask(taskId);
+
         List<TaskDTO> tasks = taskService.getAllTask(userDTO.getUserId());
         httpSession.setAttribute("task", tasks);
 

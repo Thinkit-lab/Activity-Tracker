@@ -92,10 +92,10 @@
             <td th:text="${task.getCompletedAt()}"></td>
             <td th:text="${task.getStatus()}"></td>
             <td><a th:href="@{/view_activity/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">View Activity</a></td>
-            <td><a th:href="@{/deleteTask/{id}(id=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#ad4558; color:white;">Delete</a></td>
+            <td><a th:href="@{/task/delete/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#ad4558; color:white;">Delete</a></td>
             <td><a th:href="@{/task/move_task/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Task</a></td>
-            <td><a th:href="@{/moveBack/{id}(id=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Back</a></td>
-            <td><a th:href="@{/taskDone/{id}(id=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Done</a></td>
+            <td><a th:href="@{/task/move_back/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Back</a></td>
+            <td><a th:href="@{/task/delete/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Done</a></td>
           </tr>
             <!--                        <td th:href="@{/moveTask/{id}(id =${task.id})}"><button class="btn btn-sm" style="background-color:#45ada4; color:white;">Proceeding</button></td>-->
 
