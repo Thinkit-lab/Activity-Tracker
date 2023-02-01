@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>View Task</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container my-5">
+    <h3 style="color: #45ada4" th:text="*{task.getTitle()}"></h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10" >
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <p th:text="*{task.getDescription()}"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" class="btn " value="Back" style="background-color: #45ada4; color: #FFFFFF">
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+<div class="card">
+    <div class="card-body">
+        <div class="col-md-10" >
+
+            <table class="table md-10">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Updated At</th>
+                    <th scope="col">Completed At</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody class="table md-10">
+                <tr th:object="${task}">
+                    <td th:text="${task.getTaskId()}"></td>
+                    <td th:text="${task.getCreatedAt()}"></td>
+                    <td th:text="${task.getUpdatedAt()}"></td>
+                    <td th:text="${task.getCompletedAt()}"></td>
+                    <td th:text="${task.getStatus()}"></td>
+                    <td><a th:href="@{/deleteTask/{id}(id=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#ad4558; color:white;">Delete</a></td>
+                    <td><a th:href="@{/moveTask/{id}(id=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Task</a></td>
+                    <td><a th:href="@{/moveBack/{id}(id=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Back</a></td>
+                    <td><a th:href="@{/taskDone/{id}(id=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Done</a></td>
+                    <!--                        <td th:href="@{/moveTask/{id}(id =${task.id})}"><button class="btn btn-sm" style="background-color:#45ada4; color:white;">Proceeding</button></td>-->
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
