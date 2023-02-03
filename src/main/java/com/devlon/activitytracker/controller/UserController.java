@@ -5,8 +5,10 @@ import com.devlon.activitytracker.dto.TaskDTO;
 import com.devlon.activitytracker.dto.UserDTO;
 import com.devlon.activitytracker.entity.Task;
 import com.devlon.activitytracker.entity.User;
+import com.devlon.activitytracker.exception.CustomUserException;
 import com.devlon.activitytracker.service.implementation.TaskServiceImpl;
 import com.devlon.activitytracker.service.implementation.UserServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,12 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/signup")
+    public String displaySignup(Model model) {
+        model.addAttribute("user", new UserDTO());
+        return "signup";
+    }
+
     @GetMapping("/home")
     public String displayHome(Model model, HttpSession httpSession) {
         List<TaskDTO> tasks = (List<TaskDTO>) httpSession.getAttribute("task");
@@ -59,28 +67,48 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            return "index";
+    public String registerUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult,
+                               Model model) throws CustomUserException {
+        User existingUser = userService.getUserByEmail(userDTO.getEmail());
+
+        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+            bindingResult.rejectValue("email", "",
+                    "There is already an account registered with the same email");
         }
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("user", userDTO);
+            return "/signup";
+        }
+
         userService.registerUser(userDTO);
-        return "redirect:/success";
+        return "redirect:/signup?success";
     }
 
     @PostMapping("/login")
     public String loginUser(@Valid @ModelAttribute("user") LoginDTO loginDTO, BindingResult bindingResult,
-                            HttpSession httpSession) {
+                            HttpSession httpSession) throws CustomUserException {
+
         if(bindingResult.hasErrors()) {
-            return "index";
-        }
-        UserDTO userDTO = userService.loginUser(loginDTO);
-        System.out.println(userDTO.getUserId());
-        if(userDTO == null) {
             return "redirect:/";
         }
+
+        UserDTO userDTO = userService.loginUser(loginDTO);
+        if(userDTO == null) {
+            bindingResult.rejectValue("userName", "", "Couldn't find a user with the email");
+            return "redirect:/?error=true";
+        }
+
         List<TaskDTO> tasks =  taskService.getAllTask(userDTO.getUserId());
         httpSession.setAttribute("task", tasks);
         httpSession.setAttribute("userDTO", userDTO);
-      return "redirect:/home";
+      return "redirect:/listTasks";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession userSession = request.getSession();
+        userSession.invalidate();
+        return "redirect:/";
     }
 }

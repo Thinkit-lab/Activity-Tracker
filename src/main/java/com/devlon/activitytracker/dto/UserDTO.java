@@ -1,6 +1,7 @@
 package com.devlon.activitytracker.dto;
 
 import com.devlon.activitytracker.entity.AuditEntity;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -17,6 +18,7 @@ public class UserDTO extends AuditEntity {
     private String userName;
     @NotBlank
     @Length(max = 60, message = "Invalid Email")
+    @Email
     private String email;
     @NotBlank
     @Length(min = 8, max = 16, message = "Invalid Password")

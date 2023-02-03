@@ -17,15 +17,15 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+<!--      <li class="nav-item active">-->
+<!--        <a class="nav-link" th:href="@{/creat_account}">Register <span class="sr-only">(current)</span></a>-->
+<!--      </li>-->
       <li class="nav-item active">
-        <a class="nav-link" th:href="@{/creat_account}">Register <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" th:href="@{/login_form}">Login</a>
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" >
+    <form th:action="@{/search}" th:object="${task}" class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" th:field="*{title}">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: #FFFFFF">Search</button>
     </form>
 
@@ -65,9 +65,9 @@
   <h3 style="color: #45ada4; text-align: center">All Activity</h3>
   <div class="card">
     <div class="card-body">
-      <div class="col-md-8" >
+      <div class="col-md-6" >
 
-        <table class="table md-8">
+        <table class="table md-6" style="margin-left: auto; margin-right: auto" >
           <thead>
           <tr>
             <th scope="col">ID</th>
@@ -82,8 +82,11 @@
 
           </tr>
           </thead>
-          <tbody class="table md-8">
-          <tr th:each="task, index:${tasks}">
+
+          <tbody class="table md-8" th:each="task, index:${taskPage}" style="margin-top: 20px"
+                 th:style="${index.odd}? 'font-weight: bold;'"
+                 th:alt-title="${index.even}? 'even' : 'odd'">
+          <tr >
             <td th:text="${index.count}"></td>
             <td th:text="${task.title}"></td>
             <td th:text="${task.description}"></td>
@@ -91,18 +94,31 @@
             <td th:text="${task.getUpdatedAt()}"></td>
             <td th:text="${task.getCompletedAt()}"></td>
             <td th:text="${task.getStatus()}"></td>
-            <td><a th:href="@{/view_activity/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">View Activity</a></td>
-            <td><a th:href="@{/task/delete/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#ad4558; color:white;">Delete</a></td>
-            <td><a th:href="@{/task/move_task/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Task</a></td>
-            <td><a th:href="@{/task/move_back/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Back</a></td>
-            <td><a th:href="@{/task/delete/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Done</a></td>
+            <td class="col-sm"><a th:href="@{/view_activity/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">View Activity</a></td>
           </tr>
-            <!--                        <td th:href="@{/moveTask/{id}(id =${task.id})}"><button class="btn btn-sm" style="background-color:#45ada4; color:white;">Proceeding</button></td>-->
 
+          <tr >
+            <td class="text-center"><a th:href="@{/task/delete/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#ad4558; color:white;">Delete</a></td>
+            <td class="text-center"><a th:href="@{/task/move_task/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Task</a></td>
+            <td class="text-center"><a th:href="@{/task/move_back/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Move Back</a></td>
+<!--            <td class="text-center"><a th:href="@{/task/delete/{taskId}(taskId=${task.getTaskId()})}" class="btn btn-sm" style="background-color:#45ada4; color:white;">Done</a></td>-->
 
-<!--          </tr>-->
+          </tr>
           </tbody>
         </table>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+        <span th:if="${taskPage.totalPages > 0}" class="col-md-6 col-sm-6"
+             th:each="pageNumber : ${pageNumbers}">
+          <a th:href="@{/listTasks(size=${taskPage.size}, page=${pageNumber})}"
+             th:text="${pageNumber} + ' >>'"
+             th:class="${pageNumber==taskPage.number + 1} ? active"></a>
+        </span>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

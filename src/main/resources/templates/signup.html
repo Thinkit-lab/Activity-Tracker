@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up Page</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+<div class="box">
+
+  <img src="/images/userlogo.jpeg">
+  <div class="page">
+    <div class="header">
+      <a id="signup" th:href="@{/}">log in</a>
+      <a id="login"  class="active" th:href="@{/signup}">Sign Up</a>
+    </div>
+    <!--        <div th:if="${param.error}" class="alert alert-success"> Invalid username and password</div>-->
+    <!--        <div th:if="${param.logout}" class="alert alert-success"> You have been logged out</div>-->
+    <div class="container">
+      <div th:if="${param.success}">
+        <div class="alert alert-info" style="text-decoration-color: #59ca92">
+          Registration Successful!
+        </div>
+      </div>
+      <form class="signup" name="signupForm" th:method="post" th:action="@{/register}" th:object="${user}">
+        <div>
+        <input type="email" name="email" id="signEmail" placeholder="Email" th:field="*{email}">
+        <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}" style="color: red"></p>
+        </div>
+
+        <div>
+        <input type="text" name="userName" id="signName" placeholder="Username" th:field="*{userName}">
+        <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}" style="color: red"></p>
+        </div>
+
+        <div>
+        <input type="password" name="password" id="signPassword" placeholder="Password" th:field="*{password}">
+        <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}" style="color: red"></p>
+        </div>
+        <br>
+        <input type="submit" value="Sign Up">
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!--<script src="/index.js"></script>-->
+</body>
+</html>

@@ -25,4 +25,9 @@ public interface TaskService {
     void moveBack(Long taskId) throws CustomUserException;
 
     void deleteTask(Long taskId);
+
+    void editTask(TaskDTO taskDTO, Long taskId);
+
+
+    List<TaskDTO> searchTask(String title, Long userId);
 }

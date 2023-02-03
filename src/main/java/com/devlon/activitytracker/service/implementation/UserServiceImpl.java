@@ -37,8 +37,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO loginUser(LoginDTO loginDTO) {
         User user = userRepository.findByEmailAndPassword(loginDTO.getUserName(), loginDTO.getPassword());
-
+        if(user == null) {
+           return null;
+        }
         return mappedToDTO(user);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User getUserByUsername(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    @Override
+    public User getUserByPassword(String password) {
+        return userRepository.findByPassword(password);
     }
 
     public UserDTO getUserById(Long userId) throws CustomUserException {

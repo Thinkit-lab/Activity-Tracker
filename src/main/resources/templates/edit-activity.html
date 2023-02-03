@@ -12,23 +12,24 @@
 
 <body>
 <div class="container my-5">
-  <h3 style="color: #45ada4">Add New Task</h3>
+  <h3 style="color: #45ada4">Edit Task</h3>
   <div class="card">
     <div class="card-body">
       <div class="col-md-10" >
-        <form th:action="@{/create_task}" th:object="${task}" th:method="post">
+        <form th:action="@{/edit_task/{taskId}(taskId=${currentTaskId})}" th:object="${task}" th:method="post">
           <div class="row">
             <div class="form-group col-md-8">
               <label for="title" class="col-form-label">Title</label>
-              <input th:field="*{title}" type="text"  class="form-control" id="title" placeholder="Title">
+              <input th:field="*{title}" type="text"  class="form-control" id="title">
               <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></p>
             </div>
             <div class="form-group col-md-8">
-              <label for="lastname" class="col-form-label">Description</label><textarea th:field="*{description}" type="text"  class="form-control" id="lastname" rows="5" cols="33"></textarea>
+              <label for="lastname" class="col-form-label">Description</label>
+              <textarea th:field="*{description}" type="text" class="form-control" id="lastname" rows="5" cols="33"></textarea>
               <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
             </div>
             <div class="col-md-6">
-              <input type="submit" class="btn " value="Add" style="background-color: #45ada4; color: #FFFFFF">
+              <input type="submit" class="btn " value="Edit" style="background-color: #45ada4; color: #FFFFFF">
             </div>
           </div>
         </form>

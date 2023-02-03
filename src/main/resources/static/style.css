@@ -149,5 +149,5 @@ tr {
 }
 
 td {
-    flex: calc(100% / 8);
+    flex: calc(100% / 7);
 }

@@ -48,4 +48,26 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "UPDATE task t set t.status = (t.status - 1) WHERE t.task_id = ?1",
             nativeQuery = true)
     void moveBack(Long taskId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE task t set t.title = ?1, t.description = ?2 WHERE t.task_id = ?3",
+            nativeQuery = true)
+    void updateTask(String title, String description, Long taskId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE task t set t.completed_at = ?1 WHERE t.task_id = ?2",
+            nativeQuery = true)
+    void updateCompletedAt(LocalDateTime now, Long taskId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE task t set t.completed_at = null  WHERE t.task_id = ?1",
+            nativeQuery = true)
+    void removeCompletedAt(Long taskId);
+
+    @Query(value = "select title from task t where t.user_id = ?1",
+            nativeQuery = true)
+    List<String> findAllTitle(Long userId);
 }

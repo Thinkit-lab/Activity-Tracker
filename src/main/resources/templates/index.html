@@ -11,17 +11,24 @@
 
     <img src="/images/userlogo.jpeg">
     <div class="page">
-        <div class="header">
-            <a id="login" class="active" href="#login">log in</a>
-            <a id="signup"  href="#signup">Sign Up</a>
+        <div th:if="${param.logout}">
+            <div class="text-success" style="color: #59ca92"> You have been logged out.</div>
         </div>
-        <div id="errorMsg"></div>
-        <div class="content">
+        <div class="header">
+            <a id="login" class="active" th:href="@{/}">log in</a>
+            <a id="signup"  th:href="@{/signup}">Sign Up</a>
+        </div>
+
+        <div th:if="${param.error}">
+            <div class="text-danger" style="color: darkred">Invalid Username or Password</div>
+        </div>
+
+        <div class="container">
             <form class="login" name="loginForm"  th:method="post" th:action = "@{/login}" th:object="${user}">
-                <input type="text" name="userName" id="logName" placeholder="Username" th:field="*{userName}">
-                <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
-                <input type="password" th:name="password" id="logPassword" placeholder="Password" th:field="*{password}">
-                <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
+                <input type="text" name="userName" id="userName" placeholder="Username" th:field="*{userName}">
+                <p th:if="${#fields.hasErrors('userName')}" class="alert alert-red" th:errors="*{userName}"></p>
+                <input type="password" name="password" id="password" placeholder="Password" th:field="*{password}">
+                <p th:if="${#fields.hasErrors('password')}" class="alert alert-red" th:errors="*{password}"></p>
                 <div id="check">
                     <input type="checkbox" id="remember">
                     <label for="remember">Remember Me</label>
@@ -29,16 +36,6 @@
                 <br><br>
                 <input type="submit"  value="Log In">
                 <a href="forgot_password.html" style = "color: #707070;">Forgot Password?</a>
-            </form>
-            <form class="signup" name="signupForm" th:method="post" th:action="@{/register}" th:object="${user}">
-                <input type="email" name="email" id="signEmail" placeholder="Email" th:field="*{email}">
-                <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
-                <input type="text" name="userName" id="signName" placeholder="Username" th:field="*{userName}">
-                <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
-                <input type="password" name="password" id="signPassword" placeholder="Password" th:field="*{password}">
-                <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
-                <br>
-                <input type="submit" value="Sign Up">
             </form>
         </div>
     </div>
