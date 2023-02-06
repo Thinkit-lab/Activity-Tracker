@@ -1,5 +1,4 @@
 package com.devlon.activitytracker.service.implementation;
-
 import com.devlon.activitytracker.dto.LoginDTO;
 import com.devlon.activitytracker.dto.UserDTO;
 import com.devlon.activitytracker.entity.User;
@@ -8,14 +7,13 @@ import com.devlon.activitytracker.repository.UserRepository;
 import com.devlon.activitytracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {

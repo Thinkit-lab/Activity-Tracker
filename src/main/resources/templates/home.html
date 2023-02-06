@@ -8,18 +8,14 @@
 <!--  <link rel="stylesheet" type="text/css" href="/style.css">-->
 </head>
 <body>
-<!--<nav class="navbar navbar-light" style="background-color: #fde3f0;">-->
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #45ada4;">
-  <a class="navbar-brand" href="#">Activity Tracker</a>
+  <a class="navbar-brand" th:href="@{/listTasks}">Activity Tracker</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-<!--      <li class="nav-item active">-->
-<!--        <a class="nav-link" th:href="@{/creat_account}">Register <span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
       <li class="nav-item active">
         <a class="nav-link" th:href="@{/logout}">Logout</a>
       </li>
@@ -67,7 +63,7 @@
     <div class="card-body">
       <div class="col-md-6" >
 
-        <table class="table md-6" style="margin-left: auto; margin-right: auto" >
+        <table class="table md-6" style="margin-left: auto; margin-right: auto; font-size: 14px" >
           <thead>
           <tr>
             <th scope="col">ID</th>

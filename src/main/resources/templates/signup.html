@@ -20,7 +20,7 @@
     <div class="container">
       <div th:if="${param.success}">
         <div class="alert alert-info" style="text-decoration-color: #59ca92">
-          Registration Successful!
+          Registration Successful! Login now.
         </div>
       </div>
       <form class="signup" name="signupForm" th:method="post" th:action="@{/register}" th:object="${user}">

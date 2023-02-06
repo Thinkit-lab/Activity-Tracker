@@ -17,3 +17,10 @@ spring:
       ddl-auto: update
 welcome:
   message: Welcome to CodeWithDevlon!!
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env, beans"

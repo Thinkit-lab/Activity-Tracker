@@ -1,5 +1,4 @@
 package com.devlon.activitytracker.service.implementation;
-
 import com.devlon.activitytracker.dto.TaskDTO;
 import com.devlon.activitytracker.entity.Task;
 import com.devlon.activitytracker.entity.User;
@@ -16,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
     private final UserRepository userRepository;
 
     @Autowired
@@ -169,10 +167,7 @@ public class TaskServiceImpl implements TaskService {
             list = tasks.subList(startItem, toIndex);
         }
 
-        Page<TaskDTO> taskPage
-                = new PageImpl<TaskDTO>(list, PageRequest.of(currentPage, pageSize), tasks.size());
-
-        return taskPage;
+        return new PageImpl<TaskDTO>(list, PageRequest.of(currentPage, pageSize), tasks.size());
     }
 
     private TaskDTO mappedToDTO(Task task) {
