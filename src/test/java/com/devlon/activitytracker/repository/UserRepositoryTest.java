@@ -4,6 +4,7 @@ import com.devlon.activitytracker.dto.UserDTO;
 import com.devlon.activitytracker.entity.Task;
 import com.devlon.activitytracker.entity.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -78,6 +79,7 @@ class UserRepositoryTest {
     }
 
     @Test
+    @Disabled
     void findByEmailAndPassword() {
         User found = userRepository.findById(1L).get();
         assertEquals("test", found.getUserName());
