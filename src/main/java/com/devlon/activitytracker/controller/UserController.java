@@ -60,11 +60,11 @@ public class UserController {
         return "registration-success";
     }
 
-    @GetMapping("/create-account")
-    public String accountPage(Model model) {
-        model.addAttribute("user", new UserDTO());
-        return "index";
-    }
+//    @GetMapping("/create-account")
+//    public String accountPage(Model model) {
+//        model.addAttribute("user", new UserDTO());
+//        return "index";
+//    }
 
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult,

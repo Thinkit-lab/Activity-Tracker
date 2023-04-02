@@ -24,6 +24,7 @@ public class Task extends AuditEntity implements Serializable {
     private Long taskId;
     private String title;
     private String description;
+
     private Status status;
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate

@@ -1,45 +1,45 @@
-#server:
-#  port: '9000'
-#
-#spring:
-#  security:
-#    user:
-#      name: test
-#      password: test
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    url: jdbc:mysql://localhost:3306/activityTracker
-#    password: '@Gurudesigner1'
-#  jpa:
-#    show-sql: 'true'
-#    hibernate:
-#      ddl-auto: update
-#welcome:
-#  message: Welcome to CodeWithDevlon!!
-#
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-#        exclude: "env, beans"
+server:
+  port: '9000'
 
 spring:
+  security:
+    user:
+      name: test
+      password: test
   datasource:
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    url: jdbc:postgresql://localhost:5432/activity-tracker
-    tomcat:
-      validation-query: SELECT 1
-      test-while-idle: 'true'
-    password: postgres
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/activityTracker
+    password: '@Gurudesigner1'
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: 'true'
     hibernate:
       ddl-auto: update
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+welcome:
+  message: Welcome to CodeWithDevlon!!
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env, beans"
+
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    username: postgres
+#    url: jdbc:postgresql://localhost:5432/activity-tracker
+#    tomcat:
+#      validation-query: SELECT 1
+#      test-while-idle: 'true'
+#    password: postgres
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#    show-sql: 'true'
+#    hibernate:
+#      ddl-auto: update
+#      naming:
+#        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl

@@ -5,10 +5,12 @@ import com.devlon.activitytracker.entity.User;
 import com.devlon.activitytracker.exception.CustomUserException;
 import com.devlon.activitytracker.repository.UserRepository;
 import com.devlon.activitytracker.service.UserService;
+//import me.iyanuadelekan.paystackjava.core.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
+//import org.json.JSONObject;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserService {
                 .password(userDTO.getPassword()).build();
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(user.getUpdatedAt());
+
+//        Transactions transactions = new Transactions();
+//        transactions.initializeTransaction("[reference]","[amount]","[email]","[plan]","[callback_url]");
 
         userRepository.save(user);
     }
