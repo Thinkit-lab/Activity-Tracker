@@ -5,15 +5,15 @@ services:
       context: .
     container_name: activity-tracker
     depends_on:
-      - postgres
+      - postgresqldb
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/activity-tracker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresqldb:5432/activity-tracker
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: devlon
       SPRING_JPA_HIBERNATE_DDL_AUTO: create
 
-  postgres:
-    container_name: postgres_activity_tracker
+  postgresqldb:
+    container_name: postgresqldb
     image: 'postgres:13.1-alpine'
     environment:
       POSTGRES_USER: postgres
@@ -22,7 +22,7 @@ services:
     volumes:
       - postgres:/data/postgres
     ports:
-      - "5431:5432"
+      - "5432:5432"
     networks:
       - postgres
     restart: unless-stopped
